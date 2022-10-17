@@ -9,6 +9,12 @@
         </div>
         <div class="profile__about">
             <h2>Графический дизайнер</h2>
+            <div>
+                Возраст:
+                <button @click="dec">-</button>
+                {{age}}
+                <button @click="inc">+</button>
+            </div>
         </div>
     </div>
 </template>
@@ -32,7 +38,16 @@ export default {
                 {type: "email", value: "antoshka@ivanov.son"},
                 {type: "tg", value: "@antoshka"},
                 {type: "vk", value: "https://vk.com/1234567890"}
-            ]
+            ],
+            age: 20
+        }
+    },
+    methods: {
+        inc() {
+            this.age++;
+        },
+        dec() {
+            this.age > 0 && this.age--
         }
     }
 }

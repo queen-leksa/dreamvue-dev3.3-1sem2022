@@ -25,7 +25,14 @@
 <!--</template>-->
 
 <template>
+    <header><button v-on:click="modalOpen">click</button></header>
     <usr-profile></usr-profile>
+    <div class="modal-wrapper" :style="{display: modalActivity ? 'flex' : 'none'}">
+        <div class="modal">
+            ^_^
+            <div class="modal-close" @click="modalClose">+</div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -48,7 +55,16 @@
                     "Friday",
                     "Saturday",
                     "Sunday",
-                ]
+                ],
+                modalActivity: false
+            }
+        },
+        methods: {
+            modalOpen() {
+                this.modalActivity = true;
+            },
+            modalClose() {
+                this.modalActivity = false;
             }
         }
     }
@@ -61,5 +77,31 @@
         display: grid;
         grid-template-columns: repeat(4, 120px);
         gap: 20px;
+    }
+    .modal-wrapper {
+        position: fixed;
+        display: flex;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        background-color: #0004;
+        /*backdrop-filter: blur(1px);*/
+    }
+    .modal {
+        background-color: #fff;
+        padding: 70px;
+        border-radius: 8px;
+        position: relative;
+    }
+    .modal-close {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        line-height: 1;
+        transform: rotate(45deg);
+        cursor: pointer;
     }
 </style>
