@@ -3,10 +3,14 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Profile from "@/components/Profile";
 import Home from "@/components/Home";
+import Auth from "@/components/Auth";
 
 const routes = [
     {path: "/", component: Home},
-    {path: "/profile", component: Profile}
+    {path: "/profile", component: Profile},
+    {path: "/auth", component: Auth, props: {type: "login"}},
+    {path: "/signup", component: Auth, props: {type: "signup"}},
+    {path: "/change-pwd", component: Auth, props: {type: "pwd"}},
 ];
 
 const router = createRouter({

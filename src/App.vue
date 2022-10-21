@@ -29,6 +29,7 @@
         <button v-on:click="modalOpen">click</button>
         <router-link to="/">Home</router-link>
         <router-link to="/profile">Profile</router-link>
+        <router-link to="/auth">LogIn</router-link>
     </header>
     <main-container></main-container>
     <div class="modal-wrapper" :style="{display: modalActivity ? 'flex' : 'none'}">
@@ -75,6 +76,10 @@
 <style>
     body {
         margin: 0;
+    }
+    header {
+        display: flex;
+        gap: 10px;
     }
     h1 {
         color: red;
