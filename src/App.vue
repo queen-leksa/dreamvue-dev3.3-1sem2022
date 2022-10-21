@@ -25,8 +25,12 @@
 <!--</template>-->
 
 <template>
-    <header><button v-on:click="modalOpen">click</button></header>
-    <usr-profile></usr-profile>
+    <header>
+        <button v-on:click="modalOpen">click</button>
+        <router-link to="/">Home</router-link>
+        <router-link to="/profile">Profile</router-link>
+    </header>
+    <main-container></main-container>
     <div class="modal-wrapper" :style="{display: modalActivity ? 'flex' : 'none'}">
         <div class="modal">
             ^_^
@@ -37,12 +41,11 @@
 
 <script>
     // import Card from "./components/Card/index.vue";
-    import Profile from "@/components/Profile";
+    import MainContainer from "@/components/Main";
     export default {
         name: "App",
         components: {
-            // "my-card": Card,
-            "usr-profile": Profile
+            MainContainer
         },
         data() {
             return {
@@ -70,6 +73,9 @@
     }
 </script>
 <style>
+    body {
+        margin: 0;
+    }
     h1 {
         color: red;
     }
