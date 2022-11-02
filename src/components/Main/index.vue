@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <router-view></router-view>
+        <router-view @showPopup="$emit('showPopup')"></router-view>
     </div>
 </template>
 

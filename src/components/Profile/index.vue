@@ -15,6 +15,15 @@
                 {{age}}
                 <button @click="inc">+</button>
             </div>
+            <div class="portfolio">
+                <div class="profile__item" v-for="item of projects" :key="item._id">
+                    <h2>{{item.title}}</h2>
+                    <div class="portfolio__image" :style="{backgroundImage: `url(${item.main_image})`}"></div>
+<!--                    <p v-show="item.description">{{item.description}}</p>-->
+                    <a :href="item.link" target="_blank" v-show="item.link"></a>
+                </div>
+                <div class="portfolio__btn" @click="addProject">Add project</div>
+            </div>
         </div>
     </div>
 </template>
@@ -29,6 +38,7 @@ export default {
         "profile-picture": Picture,
         "profile-contacts": Contacts
     },
+    // props: ["showPopup"],
     data() {
         return {
             name: "Антон Иванов",
@@ -39,7 +49,8 @@ export default {
                 {type: "tg", value: "@antoshka"},
                 {type: "vk", value: "https://vk.com/1234567890"}
             ],
-            age: 20
+            age: 20,
+            projects: []
         }
     },
     methods: {
@@ -48,6 +59,9 @@ export default {
         },
         dec() {
             this.age > 0 && this.age--
+        },
+        addProject() {
+            this.$emit("showPopup");
         }
     }
 }
@@ -72,5 +86,22 @@ export default {
     .profile__item {
         display: flex;
         flex-direction: column;
+    }
+    .portfolio {
+        padding: 30px 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .portfolio__item {
+        padding: 30px;
+    }
+    .portfolio__btn {
+        border: 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 10px;
     }
 </style>
