@@ -24,10 +24,18 @@
 <!--    </div>-->
 <!--</template>-->
 
+
+
+<!--
+    TODO: Используя localStorage, переписать шапку так, чтобы при наличии пользователя не было кнопок входа, а при отсутствии пользователя не было ссылки на личный кабинет.
+    TODO: На странице пользователя (можно в шапке), добавить кнопку "выйти" - очистить localStorage.
+    TODO: Отображать в личном кабинете данные авторизованного пользователя
+-->
 <template>
     <header>
         <button v-on:click="modalOpen">click</button>
         <router-link to="/">Home</router-link>
+        <router-link to="/test">Test</router-link>
         <router-link to="/profile">Profile</router-link>
         <router-link to="/auth">LogIn</router-link>
     </header>
