@@ -41,20 +41,23 @@
     </header>
     <main-container @showPopup="modalOpen"></main-container>
     <div class="modal-wrapper" :style="{display: modalActivity ? 'flex' : 'none'}">
-        <div class="modal">
-            ^_^
-            <div class="modal-close" @click="modalClose">+</div>
-        </div>
+<!--        <div class="modal">-->
+<!--            ^_^-->
+<!--            <div class="modal-close" @click="modalClose">+</div>-->
+<!--        </div>-->
+        <ModalForm @modalClose="modalClose"/>
     </div>
 </template>
 
 <script>
     // import Card from "./components/Card/index.vue";
+    import ModalForm from "@/components/ModalForm";
     import MainContainer from "@/components/Main";
     export default {
         name: "App",
         components: {
-            MainContainer
+            MainContainer,
+            ModalForm
         },
         data() {
             return {
