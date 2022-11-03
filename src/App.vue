@@ -39,7 +39,7 @@
         <router-link to="/profile">Profile</router-link>
         <router-link to="/auth">LogIn</router-link>
     </header>
-    <main-container @showPopup="modalOpen"></main-container>
+    <main-container @showPopup="modalOpen" :userData="userData"></main-container>
     <div class="modal-wrapper" :style="{display: modalActivity ? 'flex' : 'none'}">
 <!--        <div class="modal">-->
 <!--            ^_^-->

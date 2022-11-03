@@ -1,11 +1,12 @@
 <template>
     <div class="wrapper">
-        <router-view @showPopup="$emit('showPopup')"></router-view>
+        <router-view @showPopup="$emit('showPopup')" :userData="userData"></router-view>
     </div>
 </template>
 
 <script>
 export default {
+    props: ["userData"],
     name: "main-container"
 }
 </script>

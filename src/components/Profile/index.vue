@@ -2,7 +2,7 @@
     <div class="profile">
         <div class="profile__contacts">
             <profile-picture></profile-picture>
-            <h2>{{name}}</h2>
+            <h2>{{userData.name}}</h2>
             <div class="profile__item">
                 <profile-contacts v-for="(c, i) in contacts" :key="i" :type="c.type" :data="c.value"></profile-contacts>
             </div>
@@ -18,6 +18,7 @@
             <div class="portfolio">
                 <div class="profile__item" v-for="item of projects" :key="item._id">
                     <h2>{{item.title}}</h2>
+                    <button @click="removeProject(item._id)">Remove</button>
                     <div class="portfolio__image" :style="{backgroundImage: `url(${item.main_image})`}"></div>
 <!--                    <p v-show="item.description">{{item.description}}</p>-->
                     <a :href="item.link" target="_blank" v-show="item.link"></a>
@@ -38,7 +39,7 @@ export default {
         "profile-picture": Picture,
         "profile-contacts": Contacts
     },
-    // props: ["showPopup"],
+    props: ["userData"],
     data() {
         return {
             name: "Антон Иванов",
@@ -50,7 +51,7 @@ export default {
                 {type: "vk", value: "https://vk.com/1234567890"}
             ],
             age: 20,
-            projects: []
+            projects: this.userData.portfolio || []
         }
     },
     methods: {
@@ -62,7 +63,28 @@ export default {
         },
         addProject() {
             this.$emit("showPopup");
+        },
+        removeProject(id) {
+            console.log(id, this.userData._id);
+            //https://dream-design-server.herokuapp.com/api/users/project/remove/
+            fetch(`https://dream-design-server.herokuapp.com/api/users/project/remove/${this.userData._id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({"_id": id})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("result", data);
+                    if (data.message === "ok") {
+                        localStorage.setItem("user", JSON.stringify(data.data))
+                        this.projects = this.projects.filter(p => p._id !== id);
+                    }
+                })
         }
+
     }
 }
 </script>
@@ -91,6 +113,7 @@ export default {
         padding: 30px 0;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
     }
     .portfolio__item {
         padding: 30px;
@@ -103,5 +126,9 @@ export default {
         cursor: pointer;
         border-radius: 10px;
         padding: 10px;
+    }
+    .portfolio__image {
+        height: 100px;
+        background-size: cover;
     }
 </style>
