@@ -27,7 +27,48 @@ export default {
     },
     methods: {
         addProject() {
-            alert("ping");
+            let user = localStorage.getItem("user");
+            if (user) {
+                user = JSON.parse(user);
+            }
+            const body = {
+                title: this.title,
+                link: this.link,
+                main_image: this.image,
+                description: this.text,
+                tags: this.tags,
+                date: this.date && new Date(this.date)
+            }
+            console.log(body);
+            console.log(user);
+            if (user) {
+                fetch(`https://dream-design-server.herokuapp.com/api/users/project/add/${user._id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.message === "ok") {
+                        this.clearForm();
+                        user = data.data;
+                        localStorage.setItem("user", JSON.stringify(user));
+                        this.$emit("modalClose");
+                    }
+                })
+            }
+        },
+        clearForm() {
+            this.title = "";
+            this.link = "";
+            this.image = "";
+            this.text = "";
+            this.tags = [];
+            this.date = null;
         }
     }
 }
