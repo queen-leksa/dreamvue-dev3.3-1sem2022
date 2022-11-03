@@ -45,7 +45,7 @@
 <!--            ^_^-->
 <!--            <div class="modal-close" @click="modalClose">+</div>-->
 <!--        </div>-->
-        <ModalForm @modalClose="modalClose"/>
+        <ModalForm @modalClose="modalClose" @updateData="updateUserData"/>
     </div>
 </template>
 
@@ -71,7 +71,8 @@
                     "Saturday",
                     "Sunday",
                 ],
-                modalActivity: false
+                modalActivity: false,
+                userData: {}
             }
         },
         methods: {
@@ -80,6 +81,16 @@
             },
             modalClose() {
                 this.modalActivity = false;
+            },
+            updateUserData(data) {
+                this.userData = data;
+                console.log("global user", this.userData);
+            }
+        },
+        created() {
+            let user = localStorage.getItem("user");
+            if (user) {
+                this.userData = JSON.parse(user);
             }
         }
     }
